@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -21,6 +22,7 @@ import self.yue.studentmanagement.R;
 import self.yue.studentmanagement.data.Student;
 import self.yue.studentmanagement.utils.Constants;
 import self.yue.studentmanagement.utils.FileUtil;
+import self.yue.studentmanagement.utils.SearchUtil;
 import self.yue.studentmanagement.utils.SortUtil;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private List<Student> mStudents;
     private StudentsAdapter mAdapter;
     private SortUtil sortUtil;
-    private TextView mTextId, mTextName, mTextClass;
+    private SearchUtil searchUtil;
+    private TextView mTextSearchName, mTextSearchClass;
+    private EditText mEditSearchName, mEditSearchClass;
 
     String data;
 
@@ -40,20 +44,25 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
         sortUtil = new SortUtil();
+        searchUtil = new SearchUtil();
 
-//        mStudents = new ArrayList<>();
-//        mAdapter = new StudentsAdapter(mStudents);
-//        mRecylerStudents.setAdapter(mAdapter);
+        mStudents = new ArrayList<>();
+        mAdapter = new StudentsAdapter(mStudents);
+        mRecylerStudents.setAdapter(mAdapter);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         populateData(Constants.TYPE_ID);
+        refreshList(mStudents);
     }
 
     private void initViews() {
         mRecylerStudents = (RecyclerView) findViewById(R.id.recycler_students);
+        mEditSearchName = (EditText) findViewById(R.id.ed_search_name);
+        mEditSearchClass = (EditText) findViewById(R.id.ed_search_class);
+
         mRecylerStudents.setLayoutManager(new LinearLayoutManager(this));
 
         findViewById(R.id.fab_add).setOnClickListener(new View.OnClickListener() {
@@ -67,18 +76,44 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 populateData(Constants.TYPE_ID);
+                refreshList(mStudents);
             }
         });
         findViewById(R.id.text_name).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 populateData(Constants.TYPE_NAME);
+                refreshList(mStudents);
             }
         });
         findViewById(R.id.text_class).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 populateData(Constants.TYPE_CLASS);
+                refreshList(mStudents);
+            }
+        });
+
+        findViewById(R.id.tv_search_name).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!mEditSearchName.getText().toString().equals("")) {
+                    populateData(Constants.TYPE_NAME);
+                    int position = searchUtil.binarySearch(mEditSearchName.getText().toString(), mStudents);
+                    if (position != -1) {
+                        List<Student> studentList = new ArrayList<Student>();
+                        studentList.add(mStudents.get(position));
+                        refreshList(studentList);
+                    }
+                }
+            }
+        });
+        findViewById(R.id.tv_search_class).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!mEditSearchClass.getText().toString().equals("")) {
+
+                }
             }
         });
     }
@@ -89,18 +124,14 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        mStudents = new ArrayList<>();
-        mAdapter = new StudentsAdapter(mStudents);
-        mRecylerStudents.setAdapter(mAdapter);
         if (!TextUtils.isEmpty(data)) {
             Gson gson = new Gson();
             Type type = new TypeToken<List<Student>>() {
             }.getType();
-            List<Student> students = gson.fromJson(data, type);
-            if (students.size() > 1) {
-                sortUtil.bubbleSort(students, typeList);
+            mStudents = gson.fromJson(data, type);
+            if (mStudents.size() > 1) {
+                sortUtil.bubbleSort(mStudents, typeList);
             }
-            refreshList(students);
         }
     }
 

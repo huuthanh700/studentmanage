@@ -5,4 +5,5 @@
     <color name="colorAccent">#0eb9d7</color>
 
     <color name="no_data_color">#ca1045</color>
+    <color name="hint_color">#ababab</color>
 </resources>
