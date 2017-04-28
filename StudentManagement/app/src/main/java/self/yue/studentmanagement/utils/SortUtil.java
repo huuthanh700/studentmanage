@@ -57,7 +57,7 @@ public class SortUtil {
                     }
                 }
             }
-        } else {
+        } else if (type == Constants.TYPE_CLASS) {
             int counter, position;
             Student temp = new Student();
             for (counter = 0; counter < numberOfStudents - 1; counter++) {
@@ -69,7 +69,20 @@ public class SortUtil {
                     }
                 }
             }
+        } else {
+            int counter, position;
+            Student temp = new Student();
+            for (counter = 0; counter < numberOfStudents - 1; counter++) {
+                for (position = 0; position < numberOfStudents - 1 - counter; position++) {
+                    if (students.get(position).getAverageScore() > students.get(position + 1).getAverageScore()) {
+                        temp.swap(students.get(position));
+                        students.get(position).swap(students.get(position + 1));
+                        students.get(position + 1).swap(temp);
+                    }
+                }
+            }
         }
+
         return students;
     }
 

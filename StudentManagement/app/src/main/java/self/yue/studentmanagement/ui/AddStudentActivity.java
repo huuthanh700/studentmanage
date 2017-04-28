@@ -40,29 +40,37 @@ public class AddStudentActivity extends AppCompatActivity {
         findViewById(R.id.btn_add).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String classId = mEditClassId.getText().toString();
-                int id = Integer.parseInt(mEditId.getText().toString());
-                String averageScore = mEditAverageScore.getText().toString();
-                String name = mEditName.getText().toString();
-                //process name (uppercase first name, last name)
-                name = name.toLowerCase();
-                name = String.valueOf(name.charAt(0)).toUpperCase() + name.substring(1, name.length());
-                for (int i = 0; i < name.length(); i++) {
-                    if (String.valueOf(name.charAt(i)).equals(" ")) {
-                        name = name.substring(0, i + 1).trim() + " " + String.valueOf(name.charAt(i + 1)).toUpperCase() + name.substring(i + 2, name.length());
+                if (!mEditClassId.getText().toString().equals("") &&
+                        !mEditId.getText().toString().equals("") &&
+                        !mEditAverageScore.getText().toString().equals("") &&
+                        !mEditName.getText().toString().equals("")) {
+                    String classId = mEditClassId.getText().toString();
+                    int id = Integer.parseInt(mEditId.getText().toString());
+                    String averageScore = mEditAverageScore.getText().toString();
+                    String name = mEditName.getText().toString();
+                    //process name (uppercase first name, last name)
+                    name = name.toLowerCase();
+                    name = String.valueOf(name.charAt(0)).toUpperCase() + name.substring(1, name.length());
+                    for (int i = 0; i < name.length(); i++) {
+                        if (String.valueOf(name.charAt(i)).equals(" ")) {
+                            name = name.substring(0, i + 1).trim() + " " + String.valueOf(name.charAt(i + 1)).toUpperCase() + name.substring(i + 2, name.length());
+                        }
                     }
-                }
-                if (!TextUtils.isEmpty(classId) && !TextUtils.isEmpty(mEditId.getText().toString()) && (id > 0)
-                        && !TextUtils.isEmpty(name) && !TextUtils.isEmpty(averageScore)) {
-                    Student student = new Student(id, classId, name, Float.parseFloat(averageScore));
-                    Gson gson = new Gson();
-                    String data = gson.toJson(student);
-                    try {
-                        FileUtil.getInstance().saveToFile(data, FileUtil.WriteOption.OVERWRITE);
-                        showSnackbar("Successful");
-                        finish();
-                    } catch (IOException e) {
-                        showSnackbar(e.getMessage());
+                    classId = classId.toUpperCase();
+                    if (!TextUtils.isEmpty(classId) && !TextUtils.isEmpty(mEditId.getText().toString()) && (id > 0)
+                            && !TextUtils.isEmpty(name) && !TextUtils.isEmpty(averageScore)) {
+                        Student student = new Student(id, classId, name, Float.parseFloat(averageScore));
+                        Gson gson = new Gson();
+                        String data = gson.toJson(student);
+                        try {
+                            FileUtil.getInstance().saveToFile(data, FileUtil.WriteOption.OVERWRITE);
+                            showSnackbar("Successful");
+                            finish();
+                        } catch (IOException e) {
+                            showSnackbar(e.getMessage());
+                        }
+                    } else {
+                        showSnackbar("Recheck your data");
                     }
                 } else {
                     showSnackbar("Recheck your data");
