@@ -5,9 +5,9 @@
     android:layout_height="match_parent"
     tools:context="self.yue.studentmanagement.ui.MainActivity">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
         <LinearLayout
             android:id="@+id/list_container"
@@ -21,51 +21,51 @@
                 android:orientation="vertical"
                 android:padding="5dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content">-->
 
-                    <EditText
-                        android:id="@+id/ed_search_name"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:hint="Tìm theo tên"
-                        android:textColorHint="@color/hint_color"
-                        android:textSize="15sp" />
+                    <!--<EditText-->
+                        <!--android:id="@+id/ed_search_name"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="50dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:hint="Tìm theo tên"-->
+                        <!--android:textColorHint="@color/hint_color"-->
+                        <!--android:textSize="15sp" />-->
 
-                    <TextView
-                        android:id="@+id/tv_search_name"
-                        android:layout_width="100dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/border_text"
-                        android:gravity="center"
-                        android:text="Tìm kiếm" />
-                </LinearLayout>
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_search_name"-->
+                        <!--android:layout_width="100dp"-->
+                        <!--android:layout_height="30dp"-->
+                        <!--android:background="@drawable/border_text"-->
+                        <!--android:gravity="center"-->
+                        <!--android:text="Tìm kiếm" />-->
+                <!--</LinearLayout>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginTop="10dp">-->
 
-                    <EditText
-                        android:id="@+id/ed_search_class"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="1"
-                        android:hint="Tìm theo lớp"
-                        android:textColorHint="@color/hint_color"
-                        android:textSize="15sp" />
+                    <!--<EditText-->
+                        <!--android:id="@+id/ed_search_class"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="50dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:hint="Tìm theo lớp"-->
+                        <!--android:textColorHint="@color/hint_color"-->
+                        <!--android:textSize="15sp" />-->
 
-                    <TextView
-                        android:id="@+id/tv_search_class"
-                        android:layout_width="100dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/border_text"
-                        android:gravity="center"
-                        android:text="Tìm kiếm" />
-                </LinearLayout>
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_search_class"-->
+                        <!--android:layout_width="100dp"-->
+                        <!--android:layout_height="30dp"-->
+                        <!--android:background="@drawable/border_text"-->
+                        <!--android:gravity="center"-->
+                        <!--android:text="Tìm kiếm" />-->
+                <!--</LinearLayout>-->
 
                 <TextView
                     android:id="@+id/tv_list"
@@ -124,25 +124,25 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_students"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="match_parent" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:background="@color/colorPrimary"
-                android:gravity="center"
-                android:text="Thống kê"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:background="@color/colorPrimary"-->
+                <!--android:gravity="center"-->
+                <!--android:text="Thống kê"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textSize="15sp" />-->
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_statistical"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:background="@color/hint_color"></android.support.v7.widget.RecyclerView>
+            <!--<android.support.v7.widget.RecyclerView-->
+                <!--android:id="@+id/recycler_statistical"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="400dp"-->
+                <!--android:background="@color/hint_color"></android.support.v7.widget.RecyclerView>-->
         </LinearLayout>
 
-    </ScrollView>
+    <!--</ScrollView>-->
 
     <TextView
         android:id="@+id/tv_no_data"

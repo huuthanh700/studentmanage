@@ -33,16 +33,6 @@ public class SearchUtil {
                         left = mid + 1;
                     }
                 }
-
-
-//            if (students.get(mid).getName().toLowerCase().compareTo(value.toLowerCase()) == 0) {
-//                position = mid;
-//                break;
-//            } else if (students.get(mid).getName().toLowerCase().compareTo(value.toLowerCase()) > 0) {
-//                right = mid;
-//            } else {
-//                left = mid + 1;
-//            }
             }
             return position;
         } else {

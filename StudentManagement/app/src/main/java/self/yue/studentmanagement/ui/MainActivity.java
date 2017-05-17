@@ -50,75 +50,117 @@ public class MainActivity extends AppCompatActivity {
         searchUtil = new SearchUtil();
 
         mStudents = new ArrayList<>();
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
+        mStudents.add(new Student(1,"th11a","Nguyễn hữu thanh",7));
 
 
-        mAdapter = new StudentsAdapter(mStudents, null, Constants.TYPE_LIST_STUDENTS);
+
+
+        mAdapter = new StudentsAdapter(this, mStudents, null, Constants.TYPE_LIST_STUDENTS);
         mRecylerStudents.setAdapter(mAdapter);
 
-        mAdapter = new StudentsAdapter(null, mStatisticalList, Constants.TYPE_LIST_STATISTICAL);
-        mRecyclerStatistical.setAdapter(mAdapter);
+//
+//        mAdapter = new StudentsAdapter(this, null, mStatisticalList, Constants.TYPE_LIST_STATISTICAL);
+//        mRecyclerStatistical.setAdapter(mAdapter);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        populateData(Constants.TYPE_ID);
-        refreshList(mStudents);
+//        populateData(Constants.TYPE_ID);
+//        refreshList(mStudents);
 
         //process list statistical
         mStatisticalList = new ArrayList<>();
-        processStatistical();
-        refreshListStatistical(mStatisticalList);
+//        processStatistical();
+//        refreshListStatistical(mStatisticalList);
     }
 
-    private void processStatistical() {
-        String lastClass = "";
-        String currentClass = "";
-        populateData(Constants.TYPE_CLASS);
-        for (int i = 0; i < mStudents.size(); i++) {
-            currentClass = mStudents.get(i).getClassId();
-            if (!currentClass.equals(lastClass)) {
-                Statistical statistical = new Statistical(mStudents.get(i).getClassId());
-                mStatisticalList.add(statistical);
-                lastClass = currentClass;
-            }
-        }
-
-        for (int j = 0; j < mStatisticalList.size(); j++) {
-            int count = 0;
-            int excellent = 0, good = 0, average = 0;
-            for (int i = 0; i < mStudents.size(); i++) {
-                if (mStatisticalList.get(j).getmClass().equals(mStudents.get(i).getClassId())) {
-                    count = count + 1;
-                    if (mStudents.get(i).getAverageScore() >= 8) {
-                        excellent = excellent + 1;
-                    } else if (mStudents.get(i).getAverageScore() >= 7 && mStudents.get(i).getAverageScore() < 8) {
-                        good = good + 1;
-                    } else {
-                        average = average + 1;
-                    }
-                }
-            }
-            mStatisticalList.get(j).setTotal(count);
-            mStatisticalList.get(j).setExcellentStudent(excellent);
-            mStatisticalList.get(j).setGoodStudent(good);
-            mStatisticalList.get(j).setAverageStudent(average);
-
-        }
-        mStatisticalList.size();
-
-    }
+//    private void processStatistical() {
+//        String lastClass = "";
+//        String currentClass = "";
+//        populateData(Constants.TYPE_CLASS);
+//        for (int i = 0; i < mStudents.size(); i++) {
+//            currentClass = mStudents.get(i).getClassId();
+//            if (!currentClass.equals(lastClass)) {
+//                Statistical statistical = new Statistical(mStudents.get(i).getClassId());
+//                mStatisticalList.add(statistical);
+//                lastClass = currentClass;
+//            }
+//        }
+//
+//        for (int j = 0; j < mStatisticalList.size(); j++) {
+//            int count = 0;
+//            int excellent = 0, good = 0, average = 0;
+//            for (int i = 0; i < mStudents.size(); i++) {
+//                if (mStatisticalList.get(j).getmClass().equals(mStudents.get(i).getClassId())) {
+//                    count = count + 1;
+//                    if (mStudents.get(i).getAverageScore() >= 8) {
+//                        excellent = excellent + 1;
+//                    } else if (mStudents.get(i).getAverageScore() >= 7 && mStudents.get(i).getAverageScore() < 8) {
+//                        good = good + 1;
+//                    } else {
+//                        average = average + 1;
+//                    }
+//                }
+//            }
+//            mStatisticalList.get(j).setTotal(count);
+//            mStatisticalList.get(j).setExcellentStudent(excellent);
+//            mStatisticalList.get(j).setGoodStudent(good);
+//            mStatisticalList.get(j).setAverageStudent(average);
+//
+//        }
+//        mStatisticalList.size();
+//
+//    }
 
     private void initViews() {
         mRecylerStudents = (RecyclerView) findViewById(R.id.recycler_students);
-        mRecyclerStatistical = (RecyclerView) findViewById(R.id.recycler_statistical);
+//        mRecyclerStatistical = (RecyclerView) findViewById(R.id.recycler_statistical);
 
-        mEditSearchName = (EditText) findViewById(R.id.ed_search_name);
-        mEditSearchClass = (EditText) findViewById(R.id.ed_search_class);
+//        mEditSearchName = (EditText) findViewById(R.id.ed_search_name);
+//        mEditSearchClass = (EditText) findViewById(R.id.ed_search_class);
         mTextNoData = (TextView) findViewById(R.id.tv_no_data);
 
         mRecylerStudents.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerStatistical.setLayoutManager(new LinearLayoutManager(this));
+//        mRecyclerStatistical.setLayoutManager(new LinearLayoutManager(this));
 
 
         findViewById(R.id.fab_add).setOnClickListener(new View.OnClickListener() {
@@ -158,44 +200,44 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.tv_search_name).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!mEditSearchName.getText().toString().equals("")) {
-                    populateData(Constants.TYPE_NAME);
-                    int position = searchUtil.binarySearch(mEditSearchName.getText().toString(), mStudents, Constants.TYPE_NAME);
-                    if (position != -1) {
-                        List<Student> studentList = new ArrayList<Student>();
-                        studentList.add(mStudents.get(position));
-                        refreshList(studentList);
-                        mTextNoData.setVisibility(View.GONE);
-                        mRecylerStudents.setVisibility(View.VISIBLE);
-                    } else {
-                        mTextNoData.setVisibility(View.VISIBLE);
-                        mRecylerStudents.setVisibility(View.GONE);
-                    }
-                }
-            }
-        });
-        findViewById(R.id.tv_search_class).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!mEditSearchClass.getText().toString().equals("")) {
-                    populateData(Constants.TYPE_CLASS);
-                    int position = searchUtil.binarySearch(mEditSearchClass.getText().toString(), mStudents, Constants.TYPE_CLASS);
-                    if (position != -1) {
-                        List<Student> studentList = new ArrayList<Student>();
-                        studentList.add(mStudents.get(position));
-                        refreshList(studentList);
-                        mTextNoData.setVisibility(View.GONE);
-                        mRecylerStudents.setVisibility(View.VISIBLE);
-                    } else {
-                        mTextNoData.setVisibility(View.VISIBLE);
-                        mRecylerStudents.setVisibility(View.GONE);
-                    }
-                }
-            }
-        });
+//        findViewById(R.id.tv_search_name).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!mEditSearchName.getText().toString().equals("")) {
+//                    populateData(Constants.TYPE_NAME);
+//                    int position = searchUtil.binarySearch(mEditSearchName.getText().toString(), mStudents, Constants.TYPE_NAME);
+//                    if (position != -1) {
+//                        List<Student> studentList = new ArrayList<Student>();
+//                        studentList.add(mStudents.get(position));
+//                        refreshList(studentList);
+//                        mTextNoData.setVisibility(View.GONE);
+//                        mRecylerStudents.setVisibility(View.VISIBLE);
+//                    } else {
+//                        mTextNoData.setVisibility(View.VISIBLE);
+//                        mRecylerStudents.setVisibility(View.GONE);
+//                    }
+//                }
+//            }
+//        });
+//        findViewById(R.id.tv_search_class).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!mEditSearchClass.getText().toString().equals("")) {
+//                    populateData(Constants.TYPE_CLASS);
+//                    int position = searchUtil.binarySearch(mEditSearchClass.getText().toString(), mStudents, Constants.TYPE_CLASS);
+//                    if (position != -1) {
+//                        List<Student> studentList = new ArrayList<Student>();
+//                        studentList.add(mStudents.get(position));
+//                        refreshList(studentList);
+//                        mTextNoData.setVisibility(View.GONE);
+//                        mRecylerStudents.setVisibility(View.VISIBLE);
+//                    } else {
+//                        mTextNoData.setVisibility(View.VISIBLE);
+//                        mRecylerStudents.setVisibility(View.GONE);
+//                    }
+//                }
+//            }
+//        });
         findViewById(R.id.tv_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -223,16 +265,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void refreshList(List<Student> students) {
-        mAdapter = new StudentsAdapter(students, null, Constants.TYPE_LIST_STUDENTS);
+        mAdapter = new StudentsAdapter(this, students, null, Constants.TYPE_LIST_STUDENTS);
         mRecylerStudents.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
     }
 
-    private void refreshListStatistical(List<Statistical> mStatisticalList) {
-        mAdapter = new StudentsAdapter(null, mStatisticalList, Constants.TYPE_LIST_STATISTICAL);
-        mRecyclerStatistical.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
-    }
+//    private void refreshListStatistical(List<Statistical> mStatisticalList) {
+//        mAdapter = new StudentsAdapter(this, null, mStatisticalList, Constants.TYPE_LIST_STATISTICAL);
+//        mRecyclerStatistical.setAdapter(mAdapter);
+//        mAdapter.notifyDataSetChanged();
+//    }
 
     private Intent newIntent(Class activity) {
         return new Intent(this, activity);

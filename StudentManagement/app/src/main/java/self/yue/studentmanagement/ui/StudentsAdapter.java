@@ -1,9 +1,12 @@
 package self.yue.studentmanagement.ui;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import java.util.List;
@@ -12,17 +15,21 @@ import self.yue.studentmanagement.R;
 import self.yue.studentmanagement.data.Statistical;
 import self.yue.studentmanagement.data.Student;
 import self.yue.studentmanagement.utils.Constants;
+import tyrantgit.explosionfield.ExplosionField;
 
 
 public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ItemHolder> {
     private List<Student> mStudents;
     private List<Statistical> mStatistical;
     private int type;
+    private int lastPosition = -1;
+    private Context context;
 
-    public StudentsAdapter(List<Student> students, List<Statistical> statisticalList, int type) {
+    public StudentsAdapter(Context context, List<Student> students, List<Statistical> statisticalList, int type) {
         mStudents = students;
         this.mStatistical = statisticalList;
         this.type = type;
+        this.context = context;
     }
 
     @Override
@@ -38,7 +45,7 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ItemHo
     }
 
     @Override
-    public void onBindViewHolder(ItemHolder holder, int position) {
+    public void onBindViewHolder(final ItemHolder holder, final int position) {
         if (type == Constants.TYPE_LIST_STUDENTS) {
             holder.textName.setText(mStudents.get(position).getName());
             holder.textId.setText(mStudents.get(position).getId() + "");
@@ -51,6 +58,15 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ItemHo
             holder.mTextGood.setText(mStatistical.get(position).getGoodStudent() + " sinh viên");
             holder.mTextAverage.setText(mStatistical.get(position).getAverageStudent() + " sinh viên");
         }
+        setAnimation(holder.itemView, position);
+        final ExplosionField explosionField = new ExplosionField(context);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                explosionField.explode(holder.itemView);
+            }
+        });
+
     }
 
     @Override
@@ -81,6 +97,15 @@ public class StudentsAdapter extends RecyclerView.Adapter<StudentsAdapter.ItemHo
                 mTextExcellent = (TextView) itemView.findViewById(R.id.tv_excellent);
                 mTextGood = (TextView) itemView.findViewById(R.id.tv_good);
             }
+        }
+    }
+
+    private void setAnimation(View viewToAnimate, int position) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_in_left_custom);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
         }
     }
 }
